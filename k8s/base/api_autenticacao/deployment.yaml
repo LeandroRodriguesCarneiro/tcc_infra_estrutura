@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-autenticacao
+  labels:
+    app: api-autenticacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-autenticacao
+  template:
+    metadata:
+      labels:
+        app: api-autenticacao
+    spec:
+      containers:
+      - name: api-autenticacao
+        image: leandrorodriguescarneiro/tcc_api_autenticacao:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: tcc-config
+        - secretRef:
+            name: tcc-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10

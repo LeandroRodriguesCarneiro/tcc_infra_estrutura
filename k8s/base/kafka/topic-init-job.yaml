@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: topic-init
+  namespace: tcc
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: topic-init
+          image: 
+          imagePullPolicy: Always
+          command: ["python", "-m", "app.kafka.init_topics"]
+          envFrom:
+            - configMapRef:
+                name: tcc-config
+            - secretRef:
+                name: tcc-secrets
+      restartPolicy: Never

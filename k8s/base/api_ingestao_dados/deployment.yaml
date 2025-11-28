@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-ingestao-dados
+  labels:
+    app: api-ingestao-dados
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-ingestao-dados
+  template:
+    metadata:
+      labels:
+        app: api-ingestao-dados
+    spec:
+      containers:
+      - name: api-ingestao-dados
+        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: tcc-config
+        - secretRef:
+            name: tcc-secrets
+        volumeMounts:
+        - name: tmp-storage
+          mountPath: /app/tmp
+      volumes:
+      - name: tmp-storage
+        emptyDir: {}

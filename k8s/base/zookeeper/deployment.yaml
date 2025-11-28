@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-tcc
+  labels:
+    app: zookeeper-tcc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper-tcc
+  template:
+    metadata:
+      labels:
+        app: zookeeper-tcc
+    spec:
+      containers:
+      - name: zookeeper
+        image: confluentinc/cp-zookeeper:7.5.0
+        ports:
+        - containerPort: 2181
+        env:
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "2181"
+        - name: ZOOKEEPER_TICK_TIME
+          value: "2000"
+        volumeMounts:
+        - name: zookeeper-data
+          mountPath: /var/lib/zookeeper
+      volumes:
+      - name: zookeeper-data
+        emptyDir: {}

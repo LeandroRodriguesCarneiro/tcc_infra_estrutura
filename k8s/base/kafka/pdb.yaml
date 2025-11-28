@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: kafka_tcc
+  namespace: tcc
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: kafka_tcc
