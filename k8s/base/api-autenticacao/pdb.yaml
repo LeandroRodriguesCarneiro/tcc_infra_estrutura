@@ -1,10 +1,9 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: kafka_tcc
-  namespace: tcc
+  name: api-autenticacao
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: kafka-tcc
+      app: api-autenticacao

@@ -27,6 +27,14 @@ spec:
         volumeMounts:
         - name: zookeeper-data
           mountPath: /var/lib/zookeeper
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "echo 'ruok' | nc -w 2 localhost 2181 | grep imok"
+          initialDelaySeconds: 15
+          periodSeconds: 10
       volumes:
       - name: zookeeper-data
         emptyDir: {}

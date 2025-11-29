@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-chat
+  name: chromadb
   labels:
-    app: api-chat
+    app: chromadb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-chat
+      app: chromadb
   template:
     metadata:
       labels:
-        app: api-chat
+        app: chromadb
     spec:
       containers:
-      - name: api-chat
-        image: leandrorodriguescarneiro/tcc_api_chat:latest
+      - name: chromadb
+        image: chromadb/chroma
         ports:
         - containerPort: 8000
         envFrom:
@@ -24,3 +24,9 @@ spec:
             name: tcc-config
         - secretRef:
             name: tcc-secrets
+        volumeMounts:
+        - name: chroma-data
+          mountPath: /chroma/chroma
+      volumes:
+      - name: chroma-data
+        emptyDir: {}

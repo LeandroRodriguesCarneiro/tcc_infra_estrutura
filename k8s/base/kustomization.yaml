@@ -5,10 +5,22 @@ namespace: tcc
 
 resources:
   - namespace.yaml
-  - postgres/deployment.yaml
-  - postgres/service.yaml
-  - zookeeper/deployment.yaml
-  - zookeeper/service.yaml
-  - kafka/deployment.yaml
-  - kafka/service.yaml
-  - workers/deployments-workers.yaml
+  - volumes.yaml
+  - postgres/
+  - zookeeper/
+  - kafka/
+  - chromadb/
+  - api-autenticacao/
+  - api-ingestao-dados/
+  - workers/
+  - api-chat/
+
+configMapGenerator:
+  - name: tcc-config
+    literals:
+      - placeholder=dummy
+
+secretGenerator:
+  - name: tcc-secrets
+    literals:
+      - placeholder=dummy

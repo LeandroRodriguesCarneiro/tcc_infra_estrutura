@@ -47,4 +47,5 @@ spec:
           mountPath: /var/lib/kafka/data
       volumes:
       - name: kafka-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: kafka-data

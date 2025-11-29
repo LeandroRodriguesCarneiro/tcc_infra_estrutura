@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delete-index-worker
+  labels:
+    app: delete-index-worker
+    type: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delete-index-worker
+  template:
+    metadata:
+      labels:
+        app: delete-index-worker
+        type: worker
+    spec:
+      containers:
+      - name: delete-index-worker
+        image: leandrorodriguescarneiro/tcc_api-ingestao-dados:latest
+        command: ["python", "-m", "app.kafka.start_consumer", "delete_worker"]
+        envFrom:
+        - configMapRef:
+            name: tcc-config
+        - secretRef:
+            name: tcc-secrets
+        volumeMounts:
+        - name: shared-tmp
+          mountPath: /app/tmp
+      volumes:
+      - name: shared-tmp
+        persistentVolumeClaim:
+          claimName: shared-tmp

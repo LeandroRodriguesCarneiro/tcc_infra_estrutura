@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-tmp
+  namespace: tcc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: hostpath  
+  resources:
+    requests:
+      storage: 5Gi

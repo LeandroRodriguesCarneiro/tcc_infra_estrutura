@@ -24,9 +24,16 @@ spec:
             name: tcc-config
         - secretRef:
             name: tcc-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
         volumeMounts:
-        - name: tmp-storage
+        - name: shared-tmp
           mountPath: /app/tmp
       volumes:
-      - name: tmp-storage
-        emptyDir: {}
+      - name: shared-tmp
+        persistentVolumeClaim:
+          claimName: shared-tmp

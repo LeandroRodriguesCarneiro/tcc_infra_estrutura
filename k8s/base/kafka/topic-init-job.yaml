@@ -10,7 +10,7 @@ spec:
         - name: regcred
       containers:
         - name: topic-init
-          image: 
+          image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
           imagePullPolicy: Always
           command: ["python", "-m", "app.kafka.init_topics"]
           envFrom:
@@ -19,3 +19,5 @@ spec:
             - secretRef:
                 name: tcc-secrets
       restartPolicy: Never
+  backoffLimit: 1                   
+  ttlSecondsAfterFinished: 60        

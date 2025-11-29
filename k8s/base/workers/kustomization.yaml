@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - delete-index-worker-deployment.yaml
+  - delete-index-worker-hpa.yaml
+  - document-spliter-worker-deployment.yaml
+  - document-spliter-worker-hpa.yaml
+  - docx-splitter-worker-deployment.yaml
+  - docx-splitter-worker-hpa.yaml
+  - index-worker-deployment.yaml
+  - index-worker-hpa.yaml
+  - pdb.yaml
+  - pdf-splitter-worker-deployment.yaml
+  - pdf-splitter-worker-hpa.yaml

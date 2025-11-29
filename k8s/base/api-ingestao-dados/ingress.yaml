@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingestao-dados-ingress
+  namespace: tcc
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - ingestao-dados.tcc.com.br
+      secretName: api-ingestao-dados-tls-secret
+  rules:
+    - host: ingestao-dados.tcc.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-ingestao-dados
+                port:
+                  number: 8000
