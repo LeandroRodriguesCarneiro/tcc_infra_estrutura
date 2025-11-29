@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: index-worker
-        image: leandrorodriguescarneiro/tcc_api-ingestao-dados:latest
+        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
         command: ["python", "-m", "app.kafka.start_consumer", "index_worker"]
         envFrom:
         - configMapRef:

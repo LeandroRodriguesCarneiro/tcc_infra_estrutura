@@ -2,11 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kafka-tcc
+  namespace: tcc
   labels:
     app: kafka-tcc
 spec:
   selector:
     app: kafka-tcc
   ports:
-  - port: 9092
+  - name: external
+    port: 9092
     targetPort: 9092
+  - name: internal
+    port: 29092
+    targetPort: 29092

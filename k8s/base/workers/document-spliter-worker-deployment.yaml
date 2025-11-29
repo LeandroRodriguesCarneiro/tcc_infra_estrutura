@@ -14,11 +14,11 @@ spec:
     metadata:
       labels:
         app: document-spliter-worker
-        type: worker    # ← ADICIONAR ESSA LINHA
+        type: worker
     spec:
       containers:
       - name: document-spliter-worker
-        image: leandrorodriguescarneiro/tcc_api-ingestao-dados:latest
+        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
         command: ["python", "-m", "app.kafka.start_consumer", "document_spliter"]
         envFrom:
         - configMapRef:

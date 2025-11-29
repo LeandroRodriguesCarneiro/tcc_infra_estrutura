@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: delete-index-worker
-        image: leandrorodriguescarneiro/tcc_api-ingestao-dados:latest
+        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
         command: ["python", "-m", "app.kafka.start_consumer", "delete_worker"]
         envFrom:
         - configMapRef:

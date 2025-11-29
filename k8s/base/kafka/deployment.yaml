@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka-tcc
+  namespace: tcc
   labels:
     app: kafka-tcc
 spec:
