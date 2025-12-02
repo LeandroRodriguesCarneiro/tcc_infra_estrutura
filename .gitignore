@@ -1,0 +1,12 @@
+# Secrets e arquivos sensíveis
+k8s/overlays/dev/secrets-dev.env
+k8s/overlays/hml/secrets-hml.env
+k8s/overlays/prd/secrets-prd.env
+k8s/overlays/*/secrets-*.env
+*.env
+.env.*
+!env.example
+
+# Configurações locais
+.kubeconfig
+~/.kube/config
