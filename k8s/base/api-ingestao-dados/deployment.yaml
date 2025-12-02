@@ -15,25 +15,32 @@ spec:
         app: api-ingestao-dados
     spec:
       containers:
-      - name: api-ingestao-dados
-        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: tcc-config
-        - secretRef:
-            name: tcc-secrets
-        readinessProbe:
-          httpGet:
-            path: /api/v1/health
-            port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        volumeMounts:
-        - name: shared-tmp
-          mountPath: /app/tmp
+        - name: api-ingestao-dados
+          image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: tcc-config
+            - secretRef:
+                name: tcc-secrets
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: shared-tmp
+              mountPath: /app/tmp
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
       volumes:
-      - name: shared-tmp
-        persistentVolumeClaim:
-          claimName: shared-tmp
+        - name: shared-tmp
+          persistentVolumeClaim:
+            claimName: shared-tmp

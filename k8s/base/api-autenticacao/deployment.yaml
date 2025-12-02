@@ -15,18 +15,25 @@ spec:
         app: api-autenticacao
     spec:
       containers:
-      - name: api-autenticacao
-        image: leandrorodriguescarneiro/tcc_api_autenticacao:latest
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: tcc-config
-        - secretRef:
-            name: tcc-secrets
-        readinessProbe:
-          httpGet:
-            path: /api/v1/health
-            port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 10
+        - name: api-autenticacao
+          image: leandrorodriguescarneiro/tcc_api_autenticacao:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: tcc-config
+            - secretRef:
+                name: tcc-secrets
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

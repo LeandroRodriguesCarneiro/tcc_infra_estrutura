@@ -17,18 +17,25 @@ spec:
         type: worker
     spec:
       containers:
-      - name: document-spliter-worker
-        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
-        command: ["python", "-m", "app.kafka.start_consumer", "document_spliter"]
-        envFrom:
-        - configMapRef:
-            name: tcc-config
-        - secretRef:
-            name: tcc-secrets
-        volumeMounts:      
+        - name: document-spliter-worker
+          image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+          command: ["python", "-m", "app.kafka.start_consumer", "document_spliter"]
+          envFrom:
+            - configMapRef:
+                name: tcc-config
+            - secretRef:
+                name: tcc-secrets
+          volumeMounts:
+            - name: shared-tmp
+              mountPath: /app/tmp
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "768Mi"
+            limits:
+              cpu: "1.2"
+              memory: "1.2Gi"
+      volumes:
         - name: shared-tmp
-          mountPath: /app/tmp
-      volumes:             
-      - name: shared-tmp
-        persistentVolumeClaim:
-          claimName: shared-tmp
+          persistentVolumeClaim:
+            claimName: shared-tmp

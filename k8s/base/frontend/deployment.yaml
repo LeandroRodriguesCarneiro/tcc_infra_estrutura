@@ -28,3 +28,10 @@ spec:
               value: "https://ingestao-dados.tcc.com.br"
             - name: REACT_APP_API_CHAT_URL
               value: "https://chat.tcc.com.br"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"

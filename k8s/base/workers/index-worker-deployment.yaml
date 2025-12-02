@@ -14,20 +14,28 @@ spec:
     metadata:
       labels:
         app: index-worker
+        type: worker
     spec:
       containers:
-      - name: index-worker
-        image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
-        command: ["python", "-m", "app.kafka.start_consumer", "index_worker"]
-        envFrom:
-        - configMapRef:
-            name: tcc-config
-        - secretRef:
-            name: tcc-secrets
-        volumeMounts:
-          - name: shared-tmp
-            mountPath: /app/tmp
+        - name: index-worker
+          image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+          command: ["python", "-m", "app.kafka.start_consumer", "index_worker"]
+          envFrom:
+            - configMapRef:
+                name: tcc-config
+            - secretRef:
+                name: tcc-secrets
+          volumeMounts:
+            - name: shared-tmp
+              mountPath: /app/tmp
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "384Mi"
+            limits:
+              cpu: "800m"
+              memory: "768Mi"
       volumes:
-      - name: shared-tmp
-        persistentVolumeClaim:
-          claimName: shared-tmp
+        - name: shared-tmp
+          persistentVolumeClaim:
+            claimName: shared-tmp
