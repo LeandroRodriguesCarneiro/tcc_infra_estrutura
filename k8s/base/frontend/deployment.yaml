@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: tcc
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: leandrorodriguescarneiro/tcc_frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: REACT_APP_API_AUTH_URL
+              value: "https://auth.tcc.com.br"
+            - name: REACT_APP_API_DOCS_URL
+              value: "https://ingestao-dados.tcc.com.br"
+            - name: REACT_APP_API_CHAT_URL
+              value: "https://chat.tcc.com.br"
