@@ -11,16 +11,12 @@ configMapGenerator:
     envs:
       - .env.dev
     behavior: replace
-    options:
-      disableNameSuffixHash: true
 
 secretGenerator:
   - name: tcc-secrets
     envs:
       - secrets-dev.env
     behavior: replace
-    options:
-      disableNameSuffixHash: true
 
 images:
   - name: leandrorodriguescarneiro/tcc_api-autenticacao

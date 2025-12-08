@@ -14,9 +14,21 @@ spec:
       labels:
         app: api-ingestao-dados
     spec:
+      initContainers:
+        - name: wait-postgres
+          image: busybox:1.35
+          command: ['sh', '-c']
+          args:
+            - |
+              until nc -z postgres-tcc 5432; do
+                echo "Aguardando PostgreSQL...";
+                sleep 5;
+              done;
+              echo "Postgres pronto!";
       containers:
         - name: api-ingestao-dados
           image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           envFrom:

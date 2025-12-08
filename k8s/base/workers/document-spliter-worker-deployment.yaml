@@ -19,6 +19,7 @@ spec:
       containers:
         - name: document-spliter-worker
           image: leandrorodriguescarneiro/tcc_api_ingestao_dados:latest
+          imagePullPolicy: Always
           command: ["python", "-m", "app.kafka.start_consumer", "document_spliter"]
           envFrom:
             - configMapRef:

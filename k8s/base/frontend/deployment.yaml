@@ -18,7 +18,7 @@ spec:
       containers:
         - name: frontend
           image: leandrorodriguescarneiro/tcc_frontend:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:

@@ -14,26 +14,38 @@ spec:
       labels:
         app: api-chat
     spec:
+      initContainers:
+        - name: wait-postgres
+          image: busybox:1.35
+          command: ['sh', '-c']
+          args:
+            - |
+              until nc -z postgres-tcc 5432; do
+                echo "Aguardando PostgreSQL...";
+                sleep 5;
+              done;
+              echo "Postgres pronto!";
       containers:
-        - name: api-chat
-          image: leandrorodriguescarneiro/tcc_api_chat:latest
-          ports:
-            - containerPort: 8000
-          envFrom:
-            - configMapRef:
-                name: tcc-config
-            - secretRef:
-                name: tcc-secrets
-          readinessProbe:
-            httpGet:
-              path: /api/v1/health
-              port: 8000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
+      - name: api-chat
+        image: leandrorodriguescarneiro/tcc_api_chat:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
+        envFrom:
+          - configMapRef:
+              name: tcc-config
+          - secretRef:
+              name: tcc-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
